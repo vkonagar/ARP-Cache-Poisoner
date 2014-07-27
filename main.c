@@ -4,6 +4,7 @@
 #include<sys/socket.h>
 #include<stdint.h>
 #include<assert.h>
+#include<unistd.h>
 #include<linux/if_ether.h>
 
 #define BUFF_SIZE 42;
@@ -22,22 +23,13 @@ struct _arp_hdr {
 	uint8_t target_ip[4];
 };
 
-char* get_IP(char* byte_string)
-{
-	uint8_t* ip_str = (uint8_t*)malloc(sizeof(uint8_t)*10);
-	int index = 0;
-	for( i=3;i>=0;i-- )
-	{
-		ip_str[index++] = ()byte_string[i]
-	}
-}
 
 int main()
 {
 	int fd = socket(PF_PACKET, SOCK_RAW, htons(ETH_P_ARP));
 	if( fd == -1 )
 	{
-		perror("");
+		perror("Error opening ARP Socket\n");
 	}
 
 	/*
@@ -47,10 +39,19 @@ int main()
 
 	while( 1 )
 	{	
-		int a = read(fd,buffer,BUFF_SIZE,0);
-		printf("Read bytes are %d\n",a);
+		int a;
+		int total = a;
+		int read = 0;
+		read(fd,buffer,10);
+		while( total != 0 )
+		{
+			//read(fd,buffer,20);
+			total = total - a;
+			printf("Read bytes are %d\n",a);
+			read = read + a;
+		}
 		/*
-			Buffer has Ethernet-ARP 
+			Buffer has Ethernet-ARP
 			So, skip ethernet header
 		*/
 		arp_hdr* arp_packet = (arp_hdr*)(buffer+ETHERNET_LINK_SIZE);
