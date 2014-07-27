@@ -187,7 +187,7 @@ int main()
 		memcpy(buffer+6,get_spoofed_MAC(),6);
 
 		int n = 0;
-		while( n < 100 )
+		//	while( n < 100 )
 		{
 			if( sendto(fd,buffer,44,0,(struct sockaddr*)&socket_address, sizeof(socket_address)) < 0 )
 			{
@@ -199,7 +199,7 @@ int main()
 		}
 
 		printf("Sent back the reply\n");
-		break;
+		//break;
 		
 		//
 
