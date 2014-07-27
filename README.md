@@ -25,9 +25,11 @@ ARP-Spoofer
 
 ### How to use it
 
-* Add your MAC address to the "fill\_attackers\_mac" function.
+* Pass your Interface name ( ex: wlan0,eth0 ) as an argument to the command line.
 
-* Add MAC address of the victim to "fill\_victims\_mac" function.
+* Add your MAC address to the "fill\_attackers\_mac" function. ( You can find this using ifconfig command ).
+
+* Add MAC address of the victim to "fill\_victims\_mac" function. ( You can find this using any packet sniffer )
 
 * Add the Router's IP which is to be spoofed.
 
