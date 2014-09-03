@@ -35,7 +35,7 @@ struct _arp_hdr {
 /* Fill in router's IP Address here 
    Fill in victim's IP Address here */
 char* router_ip = "10.87.0.1";
-char* victim_ip = "192.168.42.209";
+char* victim_ip = "10.87.3.255";
 
 
 
@@ -237,8 +237,9 @@ int main(int argc, char* argv[])
 				perror("Error sending\n");
 				exit(0);
 			}
-			printf("Victim is attacked!, Its cache is poisoned!!");
-			sleep(1);
+			printf("Victim is attacked!, Its cache is poisoned!!\n");
+			fflush(stdout);
+			usleep(100);
 			n++;
 		}
 		
