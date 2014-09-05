@@ -32,16 +32,13 @@ struct _arp_hdr {
 };
 
 
-/* Fill in router's IP Address here 
-   Fill in victim's IP Address here */
 char* router_ip = "10.87.0.1";
-char* victim_ip = "10.87.3.255";
+char* victim_ip = "10.87.2.149";
 
 
 
 void fill_victims_MAC(uint8_t* buff)
 {
-	// *************** Fill the victim's mac here!!! **************
 
 /*
 	buff[0] = 0xC8;
@@ -204,7 +201,7 @@ int main(int argc, char* argv[])
 
 		/*index of the network device*/
 		
-		socket_address.sll_ifindex  = get_if_no(argv[1]);
+		socket_address.sll_ifindex  = get_if_no("wl");
 		
 		//socket_address.sll_ifindex  = 1;
 
