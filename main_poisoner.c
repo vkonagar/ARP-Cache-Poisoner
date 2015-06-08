@@ -32,8 +32,8 @@ struct _arp_hdr {
 };
 
 
-char* router_ip = "10.0.0.3";
-char* victim_ip = "10.0.0.2";
+char* router_ip;
+char* victim_ip;
 
 
 
@@ -130,16 +130,13 @@ int get_if_no(char* if_name)
 
 int main(int argc, char* argv[])
 {
-		if( argc > 2 )
+		if( argc != 4 )
 		{
-			printf("Invalid args\n");
+			printf("Invalid args\nUsage: Interface router_ip victim_ip\n");
 			exit(EXIT_FAILURE);
 		}
-		else if( argc < 2 )
-		{
-			printf("Not enough arguments\n");
-			exit(EXIT_FAILURE);
-		}
+		router_ip = argv[2];
+		victim_ip = argv[3];
 		int i;
 		int fd = socket(PF_PACKET, SOCK_RAW, htons(ETH_P_ARP));
 		if( fd == -1 )
@@ -148,16 +145,7 @@ int main(int argc, char* argv[])
 			exit(EXIT_FAILURE);
 		}
 		
-		printf("Initializing the setup");
 
-		int yy = 0;
-		while( yy!=100 )
-		{
-			printf(".");
-			fflush(stdout);
-			usleep(100000);
-			yy++;
-		}
 		printf("\nSocket created!\n");
 		
 		uint8_t* buffer = create_buffer(FRAME_SIZE);
@@ -314,3 +302,4 @@ int main(int argc, char* argv[])
 		}
 		free(buffer);
 }
+
