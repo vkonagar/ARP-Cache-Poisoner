@@ -32,8 +32,8 @@ struct _arp_hdr {
 };
 
 
-char* router_ip = "10.52.0.1";
-char* victim_ip = "10.52.3.255";
+char* router_ip = "10.0.0.3";
+char* victim_ip = "10.0.0.2";
 
 
 
@@ -61,12 +61,12 @@ void fill_victims_MAC(uint8_t* buff)
 void fill_attacker_MAC(uint8_t* buff)
 {
 	// ***************** Fill in Attacker ( your ) MAC here ************************
-	buff[0] = 0xEC;
-	buff[1] = 0x55;
-	buff[2] = 0xF9;
-	buff[3] = 0xC6;
-	buff[4] = 0x93;
-	buff[5] = 0x65;
+	buff[0] = 0x00;
+	buff[1] = 0x00;
+	buff[2] = 0x00;
+	buff[3] = 0x00;
+	buff[4] = 0x00;
+	buff[5] = 0x01;
 }
 
 
